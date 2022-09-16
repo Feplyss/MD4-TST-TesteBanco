@@ -20,15 +20,21 @@ public class GerenciadoraClientesTest {
 		List<Cliente> clientes = new ArrayList<>();
 		clientes.add(cliente01);
 		clientes.add(cliente02);
-		
 		GerenciadoraClientes gerClientes = new GerenciadoraClientes(clientes);
+		
 		Cliente cliente = gerClientes.pesquisaCliente(1);
+		
 		assertThat(cliente.getId(), is(1));
 		assertThat(cliente.getEmail(), is("terencio@gmail.com"));
 		
 		cliente = gerClientes.pesquisaCliente(2);
 		assertThat(cliente.getId(), is(2));
 		assertThat(cliente.getEmail(), is("joaquim@gmail.com"));
+		
+		Cliente cliente03 = new Cliente(3, "Geraldo", 41, "geraldo@gmail.com", 3, true);
+		
+		gerClientes.adicionaCliente(cliente03);
+		
 		
 	}
 }
