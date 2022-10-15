@@ -3,6 +3,8 @@ package sistemabancario;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GerenciadoraClientesTest2 {
+public class GerenciadoraClientesTest3 {
 
 	private GerenciadoraClientes gerClientes;
 
@@ -88,5 +90,71 @@ public class GerenciadoraClientesTest2 {
 		// Análise do resultado 1
 		assertThat(clienteRemovido, is(false));
 		assertThat(gerClientes.getClientesDoBanco().size(), is(2));
+	}
+	
+	@Test
+	public void testClienteIdadePermitida() throws IdadeNaoPermitidaException {
+		// Cenário customizado
+		Cliente cliente = new Cliente(3, "Leopoldo", 48, "leopoldo@gmail.com", 1, true);
+		
+		// Execução 1
+		boolean idadeValida = gerClientes.validaIdade(cliente.getIdade());
+		
+		// Análise do resultado 1
+		assertTrue(idadeValida);
+	}
+	
+	@Test
+	public void testClienteIdadePermitida18() throws IdadeNaoPermitidaException {
+		// Cenário customizado
+		Cliente cliente = new Cliente(4, "Marineia", 18, "marineira@gmail.com", 1, true);
+		
+		// Execução 1
+		boolean idadeValida = gerClientes.validaIdade(cliente.getIdade());
+		
+		// Análise do resultado 1
+		assertTrue(idadeValida);
+	}
+	
+	@Test
+	public void testClienteIdadePermitida65() throws IdadeNaoPermitidaException {
+		// Cenário customizado
+		Cliente cliente = new Cliente(5, "Forênsio", 65, "forensio@gmail.com", 1, true);
+		
+		// Execução 1
+		boolean idadeValida = gerClientes.validaIdade(cliente.getIdade());
+		
+		// Análise do resultado 1
+		assertTrue(idadeValida);
+	}
+	
+	@Test
+	public void testClienteIdadePermitidaMenor18() throws IdadeNaoPermitidaException {
+		// Cenário customizado
+		Cliente cliente = new Cliente(6, "Elenor", 17, "elenor@gmail.com", 1, true);
+		
+		try {
+			// Execução 1
+			gerClientes.validaIdade(cliente.getIdade());
+			fail();
+		}catch (Exception e){
+			// Análise do resultado 1
+			assertThat(e.getMessage(), is(IdadeNaoPermitidaException.MSG_IDADE_INVALIDA));
+		}
+	}
+	
+	@Test
+	public void testClienteIdadePermitidaMaior65() throws IdadeNaoPermitidaException {
+		// Cenário customizado
+		Cliente cliente = new Cliente(7, "Hortênsia", 66, "hortensia@gmail.com", 1, true);
+		
+		try {
+			// Execução 1
+			gerClientes.validaIdade(cliente.getIdade());
+			fail();
+		}catch (Exception e){
+			// Análise do resultado 1
+			assertThat(e.getMessage(), is(IdadeNaoPermitidaException.MSG_IDADE_INVALIDA));
+		}
 	}
 }

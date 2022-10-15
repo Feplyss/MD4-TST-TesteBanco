@@ -11,7 +11,7 @@ import org.junit.Test;
 
 
 
-public class GerenciadoraContasTest {
+public class GerenciadoraContasTest1 {
 
 	private GerenciadoraContas gerContas;
 	

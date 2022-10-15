@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class GerenciadoraClientesTest {
+public class GerenciadoraClientesTest1 {
 	
 	@Test
 	public void testePesquisaCliente(){
